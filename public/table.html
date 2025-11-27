@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Feed Table</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+        }
+
+        h2 {
+            margin: 20px;
+            text-align: center;
+        }
+
+        table {
+            width: 95%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: #eaeaea;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+
+        a {
+            text-decoration: none;
+            color: #0078ff;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Corporate News Table</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Headline</th>
+        </tr>
+    </thead>
+    <tbody id="news-body"></tbody>
+</table>
+
+<script>
+async function loadNews() {
+    try {
+        const res = await fetch('/news');
+        const data = await res.json();
+
+        const tbody = document.getElementById('news-body');
+        tbody.innerHTML = "";
+
+        if (!data || data.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="2">No news available</td></tr>';
+            return;
+        }
+
+        data.forEach(item => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td>${item.time || ''}</td>
+                <td><a href="${item.url}" target="_blank">${item.headline}</a></td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+    } catch (err) {
+        document.getElementById('news-body').innerHTML =
+            '<tr><td colspan="2">Failed to load news</td></tr>';
+    }
+}
+
+loadNews();
+</script>
+
+</body>
+</html>
