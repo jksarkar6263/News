@@ -1,93 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Feed Table</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: #f7f7f7;
-        }
+<meta charset="UTF-8">
+<title>News Table</title>
 
-        h2 {
-            margin: 20px;
-            text-align: center;
-        }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
 
-        table {
-            width: 95%;
-            margin: 20px auto;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        }
+h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 20px;
+}
 
-        th, td {
-            padding: 12px;
-            border-bottom: 1px solid #ddd;
-        }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 15px;
+}
 
-        th {
-            background: #eaeaea;
-        }
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 
-        tr:hover {
-            background: #f1f1f1;
-        }
+th {
+  background: #003366;
+  color: white;
+}
 
-        a {
-            text-decoration: none;
-            color: #0078ff;
-        }
-    </style>
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-size: 16px;
+  margin-top: 20px;
+}
+</style>
+
 </head>
 <body>
 
-<h2>Corporate News Table</h2>
+<h2>Corporate News (General + Derivative)</h2>
 
-<table>
-    <thead>
-        <tr>
-            <th>Time</th>
-            <th>Headline</th>
-        </tr>
-    </thead>
-    <tbody id="news-body"></tbody>
+<table id="newsTable">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Headline</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td colspan="2" style="text-align:center;">Loading...</td></tr>
+  </tbody>
 </table>
+
+<div id="errorMsg" class="error"></div>
 
 <script>
 async function loadNews() {
-    try {
-        const res = await fetch("https://news-p0vf.onrender.com/news")
-        const data = await res.json();
+  try {
+    const r = await fetch("/news");
+    const data = await r.json();
 
-        const tbody = document.getElementById('news-body');
-        tbody.innerHTML = "";
+    console.log("TABLE NEWS:", data);
 
-        if (!data || data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="2">No news available</td></tr>';
-            return;
-        }
+    const tbody = document.querySelector("#newsTable tbody");
+    tbody.innerHTML = "";  // clear old rows
 
-        data.forEach(item => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${item.time || ''}</td>
-                <td><a href="${item.url}" target="_blank">${item.headline}</a></td>
-            `;
-            tbody.appendChild(tr);
-        });
+    const combined = [
+      ...(data.general || []),
+      ...(data.derivative || [])
+    ];
 
-    } catch (err) {
-        document.getElementById('news-body').innerHTML =
-            '<tr><td colspan="2">Failed to load news</td></tr>';
+    if (combined.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="2" style="text-align:center;">No news available.</td></tr>`;
+      return;
     }
+
+    combined.forEach(n => {
+      const row = `
+        <tr>
+          <td>${n.date}</td>
+          <td>${n.headline}</td>
+        </tr>
+      `;
+      tbody.innerHTML += row;
+    });
+
+  } catch (err) {
+    document.getElementById("errorMsg").textContent = "Failed to load news.";
+  }
 }
 
 loadNews();
+setInterval(loadNews, 30 * 60 * 1000);  // refresh every 30 mins
 </script>
 
 </body>
