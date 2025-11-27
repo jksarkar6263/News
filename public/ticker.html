@@ -1,85 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8" />
-  <title>News Ticker</title>
+<meta charset="utf-8">
+<title>Ticker</title>
 
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      font-family: Arial, sans-serif;
-    }
+<style>
+body {
+  margin: 0;
+  background: #fff;
+  font-family: Arial;
+}
 
-    #tickerWrapper {
-      width: 100%;
-      background: linear-gradient(to right, #eef2f3, #dfe9f3);
-      border: 1px solid #ccc;
-      overflow: hidden;
-      padding: 3px 0;
-      box-sizing: border-box;
-      height: 24px;
-      display: flex;
-      align-items: center;
-    }
+.container {
+  display: flex;
+  width: 100%;
+  height: 40px;
+  background: #003366;
+  color: #fff;
+  align-items: center;
+}
 
-    #tickerStrip {
-      white-space: nowrap;
-      display: inline-block;
-      font-size: 12px;
-      animation: scrollLeft 45s linear infinite;
-    }
+.left-label {
+  width: 150px;
+  min-width: 150px;
+  background: #002550;
+  text-align: center;
+  font-weight: bold;
+  padding: 8px 5px;
+  font-size: 15px;
+}
 
-    .item {
-      margin-right: 30px;
-    }
+.ticker-wrapper {
+  overflow: hidden;
+  white-space: nowrap;
+  flex-grow: 1;
+}
 
-    @keyframes scrollLeft {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
+.ticker-text {
+  display: inline-block;
+  padding-left: 100%;
+  animation: scroll linear infinite;
+  font-size: 16px;
+  line-height: 40px;
+}
 
-    /* Pause on hover */
-    #tickerWrapper:hover #tickerStrip {
-      animation-play-state: paused;
-    }
-  </style>
+/* ⭐ SPEED CONTROL HERE */
+:root {
+  --ticker-speed: 35s;   /* HIGHER = SLOWER | LOWER = FASTER */
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+</style>
+
 </head>
-
 <body>
-  <div id="tickerWrapper">
-    <div id="tickerStrip">Loading…</div>
+
+<div class="container">
+
+  <div class="left-label">Corporate News</div>
+
+  <div class="ticker-wrapper">
+    <div class="ticker-text" id="ticker"></div>
   </div>
 
-  <script>
-    async function loadTicker() {
-      try {
-        const res = await fetch("/news");
-        const json = await res.json();
+</div>
 
-        const items = (json.general || []).slice(0, 6);
+<script>
+async function loadTicker() {
+  try {
+    const r = await fetch("/news");
+    const j = await r.json();
 
-        if (!items.length) {
-          tickerStrip.innerText = "No news available";
-          return;
-        }
+    const all = [];
+    (j.derivative || []).forEach(n => all.push(n.headline));
+    (j.general || []).forEach(n => all.push(n.headline));
 
-        const html = items
-          .map(n => `<span class="item">${n.date} — ${n.headline}</span>`)
-          .join("");
+    document.getElementById("ticker").textContent = all.join("   ★   ");
+  } catch (e) {
+    document.getElementById("ticker").textContent = "Unable to load news.";
+  }
+}
 
-        tickerStrip.innerHTML = html;
+loadTicker();
+setInterval(loadTicker, 30 * 60 * 1000);
+</script>
 
-      } catch (err) {
-        tickerStrip.innerText = "Error loading news…";
-      }
-    }
-
-    loadTicker();
-
-    // Auto-update every 10 minutes
-    setInterval(loadTicker, 10 * 60 * 1000);
-  </script>
 </body>
 </html>
