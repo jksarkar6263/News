@@ -61,7 +61,7 @@
 <script>
 async function loadNews() {
     try {
-        const res = await fetch('/news');
+        const res = await fetch("https://news-p0vf.onrender.com/news")
         const data = await res.json();
 
         const tbody = document.getElementById('news-body');

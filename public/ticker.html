@@ -46,7 +46,7 @@ body {
 
 /* ⭐ SPEED CONTROL HERE */
 :root {
-  --ticker-speed: 35s;   /* HIGHER = SLOWER | LOWER = FASTER */
+  --ticker-speed: 45s;   /* HIGHER = SLOWER | LOWER = FASTER */
 }
 
 @keyframes scroll {
@@ -71,8 +71,9 @@ body {
 <script>
 async function loadTicker() {
   try {
-    const r = await fetch("/news");
+   const r = await fetch("https://news-p0vf.onrender.com/news");
     const j = await r.json();
+    console.log("NEWS RECEIVED:", j);
 
     const all = [];
     (j.derivative || []).forEach(n => all.push(n.headline));
