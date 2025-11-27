@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>News Ticker Remote</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    #tickerWrapper {
+      width: 100%;
+      background: linear-gradient(to right, #eef2f3, #dfe9f3);
+      border: 1px solid #ccc;
+      overflow: hidden;
+      padding: 3px 0;
+      box-sizing: border-box;
+      height: 24px;
+      display: flex;
+      align-items: center;
+    }
+
+    #tickerStrip {
+      white-space: nowrap;
+      display: inline-block;
+      font-size: 12px;
+      animation: scrollLeft 45s linear infinite;
+    }
+
+    .item {
+      margin-right: 30px;
+    }
+
+    @keyframes scrollLeft {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+
+    #tickerWrapper:hover #tickerStrip {
+      animation-play-state: paused;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="tickerWrapper">
+    <div id="tickerStrip">Loading…</div>
+  </div>
+
+  <script>
+    async function loadTicker() {
+      try {
+        const res = await fetch("https://news-p0vf.onrender.com/news");
+        const json = await res.json();
+
+        const items = (json.general || []).slice(0, 6);
+
+        if (!items.length) {
+          tickerStrip.innerText = "No news available";
+          return;
+        }
+
+        const html = items
+          .map(n => `<span class="item">${n.date} — ${n.headline}</span>`)
+          .join("");
+
+        tickerStrip.innerHTML = html;
+
+      } catch (err) {
+        tickerStrip.innerText = "Error loading news…";
+      }
+    }
+
+    loadTicker();
+
+    setInterval(loadTicker, 10 * 60 * 1000);
+  </script>
+
+</body>
+</html>
