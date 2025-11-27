@@ -14,20 +14,20 @@ body {
 .container {
   display: flex;
   width: 100%;
-  height: 30px;
+  height: 20px;
   background: #003366;
   color: #fff;
   align-items: center;
 }
 
 .left-label {
-  width: 150px;
-  min-width: 150px;
+  width: 120px;
+  min-width: 120px;
   background: #002550;
   text-align: center;
   font-weight: bold;
   padding: 8px 5px;
-  font-size: 15px;
+  font-size: 13px;
 }
 
 .ticker-wrapper {
@@ -41,14 +41,14 @@ body {
   display: inline-block;
   padding-left: 100%;
   animation: scroll var(--ticker-speed) linear infinite;
-  font-size: 14px;
-  line-height: 30px;
+  font-size: 12px;
+  line-height: 20px;
   white-space: nowrap;
 }
 
 /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
 :root {
-  --ticker-speed: 10s;   /* 35s = slow | 20s = medium | 10s = fast */
+  --ticker-speed: 02s;   /* 35s = slow | 20s = medium | 10s = fast */
 }
 
 @keyframes scroll {
