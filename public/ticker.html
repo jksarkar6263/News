@@ -26,14 +26,14 @@ body {
   background: #002550;
   text-align: center;
   font-weight: bold;
-  padding: 8px 5px;
-  font-size: 13px;
+  padding: 5px 3px;
+  font-size: 10px;
 }
 
 .ticker-wrapper {
   overflow: hidden;
   white-space: nowrap;
-  flex-grow: 1;
+  flex-grow: 0;
   position: relative;
 }
 
@@ -48,7 +48,7 @@ body {
 
 /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
 :root {
-  --ticker-speed: 02s;   /* 35s = slow | 20s = medium | 10s = fast */
+  --ticker-speed: 5s;   /* 35s = slow | 20s = medium | 10s = fast */
 }
 
 @keyframes scroll {
@@ -62,7 +62,7 @@ body {
 
 <div class="container">
 
-  <div class="left-label">Corporate News</div>
+  <div class="left-label">Welcome to my Bolg : Jay</div>
 
   <div class="ticker-wrapper">
     <div class="ticker-text" id="ticker"></div>
@@ -103,7 +103,7 @@ async function loadTicker() {
 }
 
 loadTicker();
-setInterval(loadTicker, 10 * 60 * 1000);
+setInterval(loadTicker, 1 * 60 * 1000);
 </script>
 
 </body>
