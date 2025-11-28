@@ -1,101 +1,57 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>News table</title>
-  <style>
-    :root {
-      --max-width: 500px;
-      --cat-min: 50px;
-      --time-min: 50px;
-    }
+<meta charset="UTF-8">
+<title>News Table</title>
 
-    body {
-      font-family: Arial, Helvetica, sans-serif;
-      padding: 10px;
-      display: flex;
-      justify-content: center;
-      background: #fff;
-    }
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
 
-    .wrap {
-      width: 100%;
-      max-width: var(--max-width);
-    }
+h2 {
+  text-align: center;
+  color: #003366;
+  margin-bottom: 20px;
+}
 
-    table.news-table {
-      width: 100%;
-      border-collapse: collapse;
-      table-layout: auto; /* allow flexible columns */
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  font-size: 15px;
+}
 
-    table.news-table col.col-cat { min-width: var(--cat-min); }
-    table.news-table col.col-time { min-width: var(--time-min); }
-    table.news-table col.col-head { /* flexible */ }
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+}
 
-    table.news-table td {
-      border: 1px solid #ddd;
-      padding: 6px 8px;
-      vertical-align: middle;
-      word-wrap: break-word;
-      overflow-wrap: anywhere;
-    }
+th {
+  background: #003366;
+  color: white;
+}
 
-    /* First merged row style (site name) */
-    td.site-name {
-      text-align: center;
-      font-style: italic;
-      font-weight: 800;
-      text-transform: lowercase;
-      padding: 10px;
-      background: #fafafa;
-      font-size: 16px;
-    }
+tr:nth-child(even) {
+  background: #f9f9f9;
+}
 
-    /* category column */
-    td.cat-cell {
-      text-align: center;
-      font-weight: 600;
-      white-space: nowrap; /* prevent wrap for 'Derivative' / 'Stock' */
-      background: #f6f6f6;
-    }
+.error {
+  text-align: center;
+  color: red;
+  font-size: 16px;
+  margin-top: 20px;
+}
+</style>
 
-    /* time column */
-    td.time-cell {
-      white-space: nowrap; /* keep time on one line */
-      font-size: 10px; /* slightly smaller */
-      text-align: center;
-    }
-
-    /* headline column */
-    td.head-cell {
-      font-size: 13px;
-      padding-left: 10px;
-    }
-
-    /* separator row */
-    tr.separator-row td {
-      padding: 0;
-      height: 2px;
-      background: #b2d5ff; /* thin blue divider */
-      border: none;
-    }
-
-    /* zebra classes (applied by JS) */
-    tr.news-odd td { background: #ffffff; }
-    tr.news-even td { background: #fbfbfb; }
-
-    /* small screens */
-    @media (max-width: 520px) {
-      .wrap { padding: 0 6px; }
-      td.head-cell { font-size: 12px; }
-      td.time-cell { font-size: 10px; }
-      td.site-name { font-size: 13px; }
-    }
-  </style>
 </head>
 <body>
+
+<h2>Corporate News (General + Derivative)</h2>
+
 <table id="newsTable">
   <thead>
     <tr>
@@ -147,7 +103,7 @@ async function loadNews() {
 }
 
 loadNews();
-setInterval(loadNews, 10 * 60 * 1000);  // refresh every 10 mins
+setInterval(loadNews, 30 * 60 * 1000);  // refresh every 30 mins
 </script>
 
 </body>

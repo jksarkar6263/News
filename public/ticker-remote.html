@@ -11,6 +11,25 @@
       background: transparent;
       font-family: Arial, sans-serif;
     }
+    
+    .container {
+      display: flex;
+      width: 100%;
+      height: 40px;
+      background:  #002550;
+      color: #fff;
+      align-items: center;
+     }
+
+     .left-label {
+       width: 150px;
+       min-width: 150px;
+       background: #002550;
+       text-align: center;
+       font-weight: bold;
+       padding: 8px 5px;
+       font-size: 15px;
+    }
 
     #tickerWrapper {
       width: 100%;
@@ -43,10 +62,27 @@
     #tickerWrapper:hover #tickerStrip {
       animation-play-state: paused;
     }
-  </style>
+  
+    /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
+    :root {
+    --ticker-speed: 35s;   /* 35s = slow | 20s = medium | 10s = fast */
+    }
+
+    @keyframes scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+    }
+
+</style>
 </head>
 
 <body>
+  <div class="container">
+  <div class="left-label">Welcome to my Blog <i>jayfromstockmarketsinindia</i></div>
+  <div class="ticker-wrapper">
+  <div class="ticker-text" id="ticker"></div>
+  </div>
+</div>
 
   <div id="tickerWrapper">
     <div id="tickerStrip">Loading…</div>
@@ -78,7 +114,7 @@
 
     loadTicker();
 
-    setInterval(loadTicker, 10 * 60 * 1000);
+    setInterval(loadTicker, 1 * 60 * 1000);
   </script>
 
 </body>
