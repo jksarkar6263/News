@@ -16,23 +16,23 @@
       display: flex;
       width: 100%;
       height: 24px;
-      background:  #002550;
+      background: #002550;
       color: #fff;
       align-items: center;
-     }
+    }
 
-     .left-label {
-       width: 130px;
-       min-width: 130px;
-       background: #002550;
-       text-align: center;
-       font-weight: bold;
-       padding: 5px 3px;
-       font-size: 12px;
+    .left-label {
+      width: 130px;
+      min-width: 130px;
+      background: #002550;
+      text-align: center;
+      font-weight: bold;
+      padding: 5px 3px;
+      font-size: 12px;
     }
 
     #tickerWrapper {
-      width: 100%;
+      flex-grow: 1;
       background: linear-gradient(to right, #eef2f3, #dfe9f3);
       border: 1px solid #ccc;
       overflow: hidden;
@@ -62,30 +62,21 @@
     #tickerWrapper:hover #tickerStrip {
       animation-play-state: paused;
     }
-  
-    /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
-    :root {
-    --ticker-speed: 155s;   /* 35s = slow | 20s = medium | 10s = fast */
-    }
 
-    @keyframes scroll {
-    0%   { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-    }
-
-</style>
+  </style>
 </head>
 
 <body>
-  <div class="container">
-  <div class="left-label"><i>jayfromstockmarketsinindia</i></div>
-  <div class="ticker-wrapper">
-  <div class="ticker-text" id="ticker"></div>
-  </div>
-</div>
 
-  <div id="tickerWrapper">
-    <div id="tickerStrip">Loading…</div>
+  <!-- ⭐ FIXED SINGLE ROW TICKER -->
+  <div class="container">
+    <div class="left-label">
+      <i>jayfromstockmarketsinindia</i>
+    </div>
+
+    <div id="tickerWrapper">
+      <div id="tickerStrip">Loading…</div>
+    </div>
   </div>
 
   <script>
@@ -113,7 +104,6 @@
     }
 
     loadTicker();
-
     setInterval(loadTicker, 1 * 60 * 1000);
   </script>
 
