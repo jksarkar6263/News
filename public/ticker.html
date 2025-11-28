@@ -50,7 +50,7 @@ body {
 
 /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
 :root {
-  --ticker-speed: 85s;   /* 35s = slow | 20s = medium | 10s = fast */
+  --ticker-speed: 125s;   /* 35s = slow | 20s = medium | 10s = fast */
 }
 
 @keyframes scroll {
@@ -58,20 +58,14 @@ body {
   100% { transform: translateX(-100%); }
 }
 </style>
-
 </head>
 <body>
-
 <div class="container">
-
-  <div class="left-label">Welcome to my Blog : Jay</div>
-
+  <div class="left-label">Welcome to my Blog <i>jayfromstockmarketsinindia</i></div>
   <div class="ticker-wrapper">
-    <div class="ticker-text" id="ticker"></div>
+  <div class="ticker-text" id="ticker"></div>
   </div>
-
 </div>
-
 <script>
 async function loadTicker() {
   try {
@@ -82,7 +76,7 @@ async function loadTicker() {
 
     const all = [
       ...(j.general || []).map(n => n.headline).filter(Boolean),
-      ...(j.derivative || []).map(n => n.headline).filter(Boolean)
+      
     ];
 
     if (all.length === 0) {
