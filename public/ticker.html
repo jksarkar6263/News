@@ -14,28 +14,28 @@ body {
 .container {
   display: flex;
   width: 100%;
-  height: 20px;
-  background: #003366;
+  height: 15px;
+  background: #002550;
   color: #fff;
   align-items: center;
 }
 
 .left-label {
-  width: 120px;
-  min-width: 120px;
+  width: 132px;
+  min-width: 130px;
   height: 15px;
   background: #eef2f3;
   text-align: center;
-  martin-top: 3px
+  martin-top: 2px
   font-weight: bold;
-  padding: 8px 5px;
+  padding: 5px 2px;
   font-size: 11px;
 }
 
 .ticker-wrapper {
   overflow: hidden;
   white-space: nowrap;
-  flex-grow: 2;
+  flex-grow: 0;
   position: relative;
 }
 
@@ -50,7 +50,7 @@ body {
 
 /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
 :root {
-  --ticker-speed: 155s;   /* 35s = slow | 20s = medium | 10s = fast */
+  --ticker-speed: 175s;   /* 35s = slow | 20s = medium | 10s = fast */
 }
 
 @keyframes scroll {
@@ -84,7 +84,7 @@ async function loadTicker() {
       return;
     }
 
-    const text = 20.join("   ★   ");
+    const text = all.join("   ★   ");
     const ticker = document.getElementById("ticker");
 
     // Remove animation, update text, reapply animation (forces restart)
