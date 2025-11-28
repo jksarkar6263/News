@@ -15,20 +15,20 @@
     .container {
       display: flex;
       width: 100%;
-      height: 40px;
+      height: 24px;
       background:  #002550;
       color: #fff;
       align-items: center;
      }
 
      .left-label {
-       width: 150px;
-       min-width: 150px;
+       width: 130px;
+       min-width: 130px;
        background: #002550;
        text-align: center;
        font-weight: bold;
-       padding: 8px 5px;
-       font-size: 15px;
+       padding: 5px 3px;
+       font-size: 12px;
     }
 
     #tickerWrapper {
@@ -51,7 +51,7 @@
     }
 
     .item {
-      margin-right: 30px;
+      margin-right: 25px;
     }
 
     @keyframes scrollLeft {
@@ -65,7 +65,7 @@
   
     /* ⭐ SPEED CONTROL — Increase speed (slower scroll) */
     :root {
-    --ticker-speed: 35s;   /* 35s = slow | 20s = medium | 10s = fast */
+    --ticker-speed: 155s;   /* 35s = slow | 20s = medium | 10s = fast */
     }
 
     @keyframes scroll {
@@ -78,7 +78,7 @@
 
 <body>
   <div class="container">
-  <div class="left-label">Welcome to my Blog <i>jayfromstockmarketsinindia</i></div>
+  <div class="left-label"><i>jayfromstockmarketsinindia</i></div>
   <div class="ticker-wrapper">
   <div class="ticker-text" id="ticker"></div>
   </div>
